@@ -1,17 +1,16 @@
 import cv2
-import numpy as np
 
 
-def myThreshold(img):
-    _, thresh = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-    return thresh
+if __name__=='__main__':
+    # 讀取圖像
+    img = cv2.imread('flower.jpeg', 0)
 
-if __name__ == '__main__':
-    img = cv2.imread('flower.jpeg', cv2.IMREAD_GRAYSCALE)
-    threshold= myThreshold(img)
+    # 應用Otsu閾值處理
+    th1, th2 = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
-    cv2.imshow('Flower', img)
-    cv2.imshow('Thresholded', threshold)
-    cv2.imwrite('Thresholded.png', threshold)
+    # 顯示圖像
+    cv2.imshow('Original', img)
+    cv2.imshow('Otsu Thresholded', th2)
+    cv2.imwrite('Otsu Thresholded.jpg', th2)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
